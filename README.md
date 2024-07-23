@@ -185,3 +185,124 @@ disp.plot()
 plt.suptitle("Confusion Matrix for BANK dataset")
 plt.show()
 ```
+```
+![bank Random conf](https://github.com/user-attachments/assets/ba49ab71-52dd-4044-a959-cbd03c79f92e)
+
+# MODEL EVALUATION
+## (i) Performance of models using a confusion matrix.
+A confusion matrix is a table used to describe the performance of a classification model on a set of test data for which the true values are known. 
+It helps in understanding the types of errors the model is making. Here's the typical arrangement of the confusion matrix along with the definitions 
+of True Positive (TP), True Negative (TN), False Positive (FP), and False Negative (FN):
+
+## 1 Logistic regression
+True Positive (TP): 226
+
+True Negative(TN): 2
+
+False Positive(FP): 183
+
+False Negative(Fn): 3
+
+## 2 Random forest
+True Positive (TP): 229
+
+True Negative(TN): 2
+
+False Positive(FP): 183
+
+False Negative(Fn): 3
+
+True Positives (TP) Algorithm correctly predicted authentic banknote
+True Negatives (TN) Algorithm correctly predicted counterfeit bank note,
+False Positives (FP) Algorithm predicted authentic bank note, but its counterfeit
+False Negatives (FN) Algorithm predicted counterfeit bank note, but its Authentic
+## Conclusion
+Based on the provided TP values, the random forest seems to have a slight edge.
+
+## (ii) STRENGTH AND WEAKNESS OF MODEL
+### 1 Logistic Regression
+Strengths:
+Interpretable coefficients.
+
+Computationally efficient.
+
+Provides probabilistic outputs.
+
+Weaknesses:
+Assumes linear relationships.
+
+Sensitive to outliers.
+
+### 2 Random Forest
+Strengths:
+Captures non-linear relationships.
+
+High performance and robustness.
+
+Weaknesses:
+Less interpretable.
+
+More computationally intensive
+
+## Performance Metrics
+Logistic Regression: Have lower accuracy and same F1-score on complex, non-linear data, but offers clear interpretation and efficiency.
+
+Random Forest: have higher accuracy, same precision and recall, and ROC-AUC on complex datasets but at the cost of interpretability and computational resources.
+
+# MODEL OPTIMIZATION USING THE GRIDSEARCH
+```
+from sklearn.model_selection import train_test_split, GridSearchCV
+model = RandomForestClassifier(random_state=42)
+```
+```
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'bootstrap': [True, False]
+}
+```
+```
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=2)
+grid_search.fit(x_train, y_train)
+```
+```
+best_model = grid_search.best_estimator_
+```
+```
+y_pred = best_model.predict(x_test)
+print("Best Parameters:", grid_search.best_params_)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+```
+# CONCLUSION
+### (i) FINDINGS IN THE PERFORMANCCE OF THE RANDOM FOREST USING THE GRID SEARCH
+The Random Forest classifier outperformed Logistic Regression across all performance metrics, including accuracy (0.99), precision (1), recall (0.99), and F1 score (1). These results indicate that Random Forest is more effective in classifying banknotes as authentic or counterfeit.
+
+### (ii) Insights into which model is more suitable for this task and why.
+Using grid search to optimize the Random Forest model significantly enhances its performance by fine-tuning hyperparameters like the number of trees and maximum depth. This optimization leads to better handling of complex data patterns and interactions compared to Logistic Regression. The Random Forest's ensemble nature and robustness to overfitting make it more suitable for accurately classifying banknotes as authentic or counterfeit. Its superior performance metrics, including accuracy, precision, recall, and F1 score, indicate its effectiveness and reliability for this task. Thus, the optimized Random Forest model is the more suitable choice.
+
+### (iii) Discuss any potential improvements or future work that could be done.
+Using grid search techniques with the Random Forest model can significantly enhance performance by fine-tuning hyperparameters such as the number of trees, maximum depth, and minimum samples per leaf. Implementing feature engineering strategies, like creating new features and selecting the most relevant ones, can further boost model accuracy. Ensemble methods, such as stacking with other algorithms like XGBoost, can improve predictive power. Regularly retraining the model with new data ensures it remains effective over time. Monitoring and evaluating the model in real-world scenarios will help maintain its performance. Finally, incorporating additional relevant data sources and using interpretability tools like SHAP values can provide deeper insights and improve model reliability.
+
+# FEATURE IMPORTANCE
+```
+#bank.Series(rf.feature_importance_, index=x.columns).nlargest(10)
+from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+```
+# TRAIN A RANDOM FOREST CLASSIFIER
+```
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(x, y)
+```
+# PLOT THE FEATURE IMPORTANCE
+```
+plt.figure()
+plt.title("Feature Importances")
+plt.bar(range(x.shape[1]), importances[indices], align="center")
+plt.xticks(range(x.shape[1]), [x.columns[i] for i in indices], rotation=90)
+plt.show()
+```
+# CROSS VALIDATION¶
