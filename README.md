@@ -109,13 +109,35 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 # Predict on the validation set
 y_pred_lr = LGR.predict(x_test)
+```
 
 # Evaluate the model
+```
 print("Logistic Regression Evaluation:")
 print(classification_report(y_test, y_pred_lr))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred_lr))
 ```
+```
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test, y_pred_lr)
+print("Accuracy:", accuracy)
+```
+```
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+#from sklearn.metrics import classification_report
+#assuming 'knn' is your trained model, 'X_test' are your test features
+y_pred_lr = LGR.predict(x_test)
+cm = confusion_matrix(y_test, y_pred_lr)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=LGR.classes_)
+disp.plot()
+
+plt.suptitle("Confusion Matrix for Bank dataset")
+plt.show()
+```
+
 ![BANK CONFUSION LOG](https://github.com/user-attachments/assets/ed937f00-e5d0-4c2d-ae59-fc13b390a145)
 
 # RANDOM FOREST
@@ -142,8 +164,8 @@ print(classification_report(y_test, y_pred))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 ```
+# Evaluate the model
 ```
-#evaluae the model
 y_pred = rf.predict(x_test)
 accuracy_score(y_test, y_pred)
 ```
