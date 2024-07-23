@@ -55,3 +55,7 @@ for col in num_cols:
     sns.boxplot(x=bank[col])
     plt.show()
 ```
+
+![bank variance1](https://github.com/user-attachments/assets/742fb838-1a8b-4bef-8920-1b3c9031b2da)
+![bank curtosis 2](https://github.com/user-attachments/assets/693ec3b6-8064-4823-91f4-cdd8ba633c6c)
+![bank target 3](https://github.com/user-attachments/assets/53e15452-4609-44b3-9839-993960345e72)
