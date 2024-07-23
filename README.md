@@ -169,10 +169,13 @@ print(confusion_matrix(y_test, y_pred))
 y_pred = rf.predict(x_test)
 accuracy_score(y_test, y_pred)
 ```
-# import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
 #from sklearn.metrics import classification_report
+
 #assuming 'knn' is your trained model, 'X_test' are your test features
+
 y_pred = rf.predict(x_test)
 cm = confusion_matrix(y_test, y_pred)
 
