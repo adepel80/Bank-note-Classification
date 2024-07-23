@@ -59,3 +59,60 @@ for col in num_cols:
 ![bank variance1](https://github.com/user-attachments/assets/742fb838-1a8b-4bef-8920-1b3c9031b2da)
 ![bank curtosis 2](https://github.com/user-attachments/assets/693ec3b6-8064-4823-91f4-cdd8ba633c6c)
 ![bank target 3](https://github.com/user-attachments/assets/53e15452-4609-44b3-9839-993960345e72)
+
+# DATA PREPROCESSING
+#checking for null value
+```
+bank.isnull().sum()
+```
+```
+y = bank["Target"]
+x = bank.drop (["Target"], axis = 1)
+```
+# SPLITING OF DATA TO TEST AND TRAIN 70/30
+```
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 42)
+
+x_train.shape
+
+x_test.shape
+
+y_test.shape
+
+y_train.shape
+```
+# SCALE THE FEATURE VALUE
+```
+from sklearn.preprocessing import StandardScaler
+std = StandardScaler()
+X_train = std.fit_transform(x_train)
+X_test = std.transform(x_test)
+
+```
+# MODEL DEVELOPMENT
+## LOGISTIC REGRESSION
+```
+from sklearn.linear_model import LogisticRegression
+```
+```
+LGR = LogisticRegression(C=2,
+                        n_jobs=5,
+                        random_state=2)
+```
+```
+LGR.fit(x_train, y_train)
+```
+```
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Predict on the validation set
+y_pred_lr = LGR.predict(x_test)
+
+# Evaluate the model
+print("Logistic Regression Evaluation:")
+print(classification_report(y_test, y_pred_lr))
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred_lr))
+```
