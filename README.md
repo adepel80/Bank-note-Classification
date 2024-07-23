@@ -116,3 +116,47 @@ print(classification_report(y_test, y_pred_lr))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred_lr))
 ```
+![BANK CONFUSION LOG](https://github.com/user-attachments/assets/ed937f00-e5d0-4c2d-ae59-fc13b390a145)
+
+# RANDOM FOREST
+```
+from sklearn.ensemble import RandomForestClassifier
+RandomForestClassifier?
+```
+```
+rf = RandomForestClassifier(n_estimators=20)
+```
+```
+rf.fit(x_train, y_train)
+```
+```
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+
+# Predict on the validation set
+y_pred = rf.predict(x_test)
+
+# Evaluate the model
+print("Logistic Regression Evaluation:")
+print(classification_report(y_test, y_pred))
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+```
+```
+#evaluae the model
+y_pred = rf.predict(x_test)
+accuracy_score(y_test, y_pred)
+```
+# import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+#from sklearn.metrics import classification_report
+#assuming 'knn' is your trained model, 'X_test' are your test features
+y_pred = rf.predict(x_test)
+cm = confusion_matrix(y_test, y_pred)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=rf.classes_)
+disp.plot()
+
+plt.suptitle("Confusion Matrix for BANK dataset")
+plt.show()
+```
